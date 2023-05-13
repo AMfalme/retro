@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 
+    'corsheaders',
     # DRF
+
     'rest_framework',
     'core',
     'blog',
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -115,6 +119,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

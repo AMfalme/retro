@@ -3,19 +3,32 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.contrib.auth.models import User, Group
-from core.models import HeroSection, AboutSection, Studies, WorkExperience, Technologies, Projects, SocialAccountLinks
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer, HeroSectionSerializer, AboutSectionSerializer, StudiesSeializer, ProjectsSerializer, WorkExperienceSerializer, TechnologiesSerializer, SocialLinksSerializer
+from core.models import HeroSection, AboutSection, Studies, WorkExperience, Technologies, Projects, SocialAccountLinks, Snippet
+from rest_framework import viewsets, permissions, generics, views
+from .serializers import (
+    UserSerializer, 
+    GroupSerializer, 
+    HeroSectionSerializer, 
+    AboutSectionSerializer, 
+    StudiesSeializer, 
+    ProjectsSerializer, 
+    WorkExperienceSerializer, 
+    TechnologiesSerializer, 
+    SocialLinksSerializer, 
+    SnippetSerializer
+)
 from django.http import HttpResponse
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
+
+class UserList(generics.ListAPIView):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -27,9 +40,24 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class HeroSecitonViewSet(viewsets.ModelViewSet):
+
+
+class SnippetList(generics.ListCreateAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+        # return super().perform_create(serializer)
+
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+
+class HeroSectionListCreateViewSet(generics.ListCreateAPIView):
     """
-    API endpoint that allows Hero Section to be viewed or edited.
+    API endpoint to create and list the hero section details
     """
     queryset = HeroSection.objects.all()
     serializer_class = HeroSectionSerializer
@@ -37,7 +65,17 @@ class HeroSecitonViewSet(viewsets.ModelViewSet):
 
 
 
-class AboutSectionViewSet(viewsets.ModelViewSet):
+class HeroSectionDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API endpoint that allows Hero Section to be viewed, deleted or edited.
+    """
+    queryset = HeroSection.objects.all()
+    serializer_class = HeroSectionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+class AboutSection(generics.RetrieveUpdateDestroyAPIView):
     """
     API endpoint that allows Hero Section to be viewed or edited.
     """
