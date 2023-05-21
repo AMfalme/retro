@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import routers, serializers, viewsets
-from .models import Snippet, HeroSection, AboutSection, Studies, WorkExperience, Projects, Technologies, SocialAccountLinks
+from .models import Snippet, HeroSection, AboutSection, Studies, \
+      WorkExperience, Projects, Technologies, SocialAccountLinks, ContactPage
 
 
 
@@ -60,4 +61,10 @@ class ProjectsSerializer(serializers.HyperlinkedModelSerializer):
 class SocialLinksSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SocialAccountLinks
+        fields = '__all__'
+
+
+class ContactPageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactPage
         fields = '__all__'

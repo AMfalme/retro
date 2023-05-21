@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.contrib.auth.models import User, Group
-from core.models import HeroSection, AboutSection, Studies, WorkExperience, Technologies, Projects, SocialAccountLinks, Snippet
+from core.models import HeroSection, AboutSection, Studies, WorkExperience, Technologies, Projects, SocialAccountLinks, Snippet, ContactPage
 from rest_framework import viewsets, permissions, generics, views
 from .serializers import (
     UserSerializer, 
@@ -15,7 +15,8 @@ from .serializers import (
     WorkExperienceSerializer, 
     TechnologiesSerializer, 
     SocialLinksSerializer, 
-    SnippetSerializer
+    SnippetSerializer,
+    ContactPageSerializer
 )
 from django.http import HttpResponse
 
@@ -61,7 +62,7 @@ class HeroSectionListCreateViewSet(generics.ListCreateAPIView):
     """
     queryset = HeroSection.objects.all()
     serializer_class = HeroSectionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 
@@ -93,7 +94,7 @@ class StudiesViewSet(viewsets.ModelViewSet):
 class WorkExperienceViewSet(viewsets.ModelViewSet):
     queryset = WorkExperience.objects.all()
     serializer_class = WorkExperienceSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    
 
 class TechnologiesViewSet(viewsets.ModelViewSet):
     queryset = Technologies.objects.all()
@@ -109,3 +110,13 @@ class ProjectsViewSet(viewsets.ModelViewSet):
     queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class ContactListCreateViewSet(generics.ListCreateAPIView):
+    """
+    API endpoint to create and list the hero section details
+    """
+    queryset = ContactPage.objects.all()
+    serializer_class = ContactPageSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+    

@@ -95,3 +95,10 @@ class SocialAccountLinks(models.Model):
     name = models.CharField(max_length=100, blank=False, default='')
     account_link = models.URLField(max_length=200)
     link_icon = models.CharField(max_length=100, blank=False, default='')
+
+
+
+class ContactPage(models.Model):
+    email = models.EmailField(max_length=254,blank=False, null=False)
+    subject = models.CharField(max_length=100, blank=False, default='')
+    description = models.TextField()

@@ -15,7 +15,8 @@ from .views import (
     SocialLinksViewSet, 
     ProjectsViewSet, 
     UserList, 
-    UserDetail
+    UserDetail,
+    ContactListCreateViewSet
 )
 from rest_framework import routers
 router = routers.SimpleRouter()
@@ -23,7 +24,7 @@ router = routers.SimpleRouter()
 # router.register(r'about', AboutSection)
 router.register('social-links', SocialLinksViewSet),
 router.register('studies', StudiesViewSet),
-router.register('work-experience', WorkExperienceViewSet),
+router.register('careers', WorkExperienceViewSet),
 router.register('technologies', TechnologiesViewSet),
 
 urlpatterns = [
@@ -32,6 +33,7 @@ urlpatterns = [
     path('herosection-detail/<int:pk>/', HeroSectionDetail.as_view()),
     path('users/', UserList.as_view(),),
     path('users/<int:pk>/', UserDetail.as_view(),name="user-detail"),
+    path('contact', ContactListCreateViewSet.as_view(), name="contact")
 ]
 
 urlpatterns+=router.urls
