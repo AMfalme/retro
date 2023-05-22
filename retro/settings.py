@@ -121,7 +121,7 @@ REST_FRAMEWORK = {
 
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
+    'https://mfalmegriffin.co.ke', 'https://www.mfalmegriffin.co.ke'
 ]
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
